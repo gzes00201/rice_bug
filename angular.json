@@ -17,6 +17,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "@zxing/library"
+            ],
             "outputPath": "dist/rice-bug",
             "index": "src/index.html",
             "main": "src/main.ts",

@@ -1,0 +1,14 @@
+<a [routerLink]="[ '/' ]">home</a>
+<div class="tooltip" *ngIf="showMsg !== ''">
+  {{showMsg}}
+</div>
+<zxing-scanner #scanner
+      class="scanner"
+      [hidden]="!hasDevices"
+      [formats]="formatsEnabled"
+      [device]="currentDevice"
+      (deviceChange)="onDeviceChange($event)"
+      (scanSuccess)="onCodeResult($event)"
+      (permissionResponse)="onHasPermission($event)"
+      (camerasFound)="onCamerasFound($event)">
+    </zxing-scanner>

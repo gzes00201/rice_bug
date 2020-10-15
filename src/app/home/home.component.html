@@ -1,0 +1,14 @@
+<a [routerLink]="[ '/scanner' ]">scanner</a>
+<div *ngFor="let project of taskService.projectList" class="project">
+  <span class="project-info">專案項目:{{project.name}}</span>
+  <span class="project-info">完成狀態:{{project.done}}</span>
+  <span class="project-info">所需設定:{{project.config | json}}</span>
+  <div>任務項目:</div>
+  <div *ngFor="let task of project.taskList" class="task">
+    <span class="project-info">任務id:{{task.id}}</span>
+    <span class="project-info">任務名稱:{{task.name}}</span>
+    <span class="project-info">任務者:{{task.worker}}</span>
+    <span class="project-info">點數:{{task.point}}</span>
+    <span class="project-info" [class.final]="task.final">任務狀態:{{task.final}}</span>
+  </div>
+</div>
