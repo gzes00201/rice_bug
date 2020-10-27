@@ -14,6 +14,7 @@ export class RiceBugTaskImp implements RiceBugTask {
   worker: Worker;
   point: number;
   final: boolean;
+
   constructor(id: string, name: string, worker: Worker, point: number) {
     this.id = id;
     this.name = name;

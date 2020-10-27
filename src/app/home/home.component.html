@@ -1,7 +1,39 @@
-<a [routerLink]="[ '/scanner' ]">scanner</a>
+
+<input type="text" [value]="taskService.teamName" (input)="changeName($event.target.value) ">
+<div>
+  當前回合：{{taskService.currentRound.roundID}}
+  <br>
+  當前秒數：{{countDown | countdown}}
+  <br>
+  {{taskService.config | json}}
+</div>
+<div>
+  <div>chart Point: </div>
+  <div>28</div>
+  <div>24</div>
+  <div>22</div>
+  <ng-container  *ngFor="let item of taskService.rounds | slice:0:taskService.currentRound.roundID-1">
+    <div *ngIf="item.point > 0"> {{item.point}}</div>
+  </ng-container>
+</div>
+
+<div>
+  <div>chart Amount: </div>
+  <div>19000</div>
+  <div>15000</div>
+  <div>11000</div>
+  <ng-container  *ngFor="let item of taskService.rounds | slice:0:taskService.currentRound.roundID-1">
+    <div *ngIf="item.amount > 0"> {{item.amount}}</div>
+  </ng-container>
+</div>
+<button *ngIf="!taskService.currentRound.isPlanDone" (click)="doPlan()">do Plan</button>
+<button *ngIf="!taskService.currentRound.isWorkDone && taskService.currentRound.isPlanDone" (click)="doWork()">do Work</button>
+<a [routerLink]="[ '/scanner' ]" *ngIf="taskService.currentRound.isPlanDone && taskService.currentRound.isWorkDone">計分</a>
+<button *ngIf="taskService.currentRound.isPlanDone && taskService.currentRound.isWorkDone" (click)="nextRund()">nextRund</button>
 <div *ngFor="let project of taskService.projectList" class="project">
   <span class="project-info">專案項目:{{project.name}}</span>
-  <span class="project-info">完成狀態:{{project.done}}</span>
+  <span class="project-info" [class.final]="project.done">完成狀態:{{project.done}}</span>
+  <span class="project-info" [class.final]="project.final">結案:{{project.final}}</span>
   <span class="project-info">所需設定:{{project.config | json}}</span>
   <div>任務項目:</div>
   <div *ngFor="let task of project.taskList" class="task">
@@ -11,4 +43,5 @@
     <span class="project-info">點數:{{task.point}}</span>
     <span class="project-info" [class.final]="task.final">任務狀態:{{task.final}}</span>
   </div>
+  <button *ngIf="project.done && !project.final" (click)="taskService.close(project, taskService.currentRound)">結案</button>
 </div>
