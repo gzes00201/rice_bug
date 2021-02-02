@@ -14,14 +14,7 @@ export class AppComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    import('./modules/tp1/tp1.module').then(loadedModule => {
-      const lazyPageModule = loadedModule.Tp1Module;
-      this.compiler.compileModuleAsync(lazyPageModule).then(moduleFactory => {
-        const moduleRef = moduleFactory.create(this.injector);
-        console.log(moduleRef);
-        this.router.navigate(['/tp']);
-      });
-    });
+
   }
 
 }

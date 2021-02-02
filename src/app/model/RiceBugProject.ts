@@ -7,6 +7,7 @@ export interface ServerConfig {
 }
 
 export interface RiceBugProject {
+  startRound: number;
   isMainProject: boolean;
   checkRound: number;
   name: string;
@@ -19,7 +20,7 @@ export interface RiceBugProject {
     last: number;
   };
   taskList: RiceBugTask[];
-  config: ServerConfig;
+  config?: ServerConfig;
   done: boolean;
   final: boolean;
 }
@@ -33,20 +34,20 @@ export class RiceBugProjectImp implements RiceBugProject {
   name: string;
 
   taskList: RiceBugTask[];
-  config: { server: number; config: number; proxy: number; };
   done: boolean;
   final: boolean;
   constructor(
+    public startRound: number,
     name: string,
     public isMainProject: boolean,
     public point: PointLevel,
     public price: PointLevel,
-    taskList?: RiceBugTask[]) {
-    this.checkRound = 0;
+    taskList?: RiceBugTask[],
+    public config?: ServerConfig) {
+    this.checkRound = this.startRound;
     this.name = name;
 
     this.taskList = taskList ? taskList : [];
-    this.config = { server: 0, config: 1, proxy: 0, };
     this.done = false;
     this.final = false;
   }

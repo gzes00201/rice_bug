@@ -87,8 +87,10 @@ export class ScannerComponent implements OnInit {
 
   private go(id: string): void {
     const newMsg = '輸入:' + id;
+    console.log(newMsg);
 
     this.taskService.checkinTask(id);
+
     if (newMsg !== this.showMsg) {
       this.showMsg = newMsg;
       setTimeout(() => {
@@ -99,4 +101,5 @@ export class ScannerComponent implements OnInit {
     // window.parent.location.href = url;
     // this.closeEmit();
   }
+
 }

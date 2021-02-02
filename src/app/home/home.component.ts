@@ -2,6 +2,7 @@ import { TaskService } from './../services/task.service';
 import { Component, OnInit } from '@angular/core';
 import { interval, Observable } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { Worker } from './../enum/worker.enum';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,7 +10,7 @@ import { take, tap } from 'rxjs/operators';
 })
 export class HomeComponent implements OnInit {
   countDown: number;
-
+  Worker = Worker;
   constructor(public taskService: TaskService) {
     this.countDown = 0;
   }
@@ -61,7 +62,9 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-
+  done(id) {
+    this.taskService.checkinTask(id);
+  }
 
   private startCountDown(): Observable<number> {
     // 20分鐘
