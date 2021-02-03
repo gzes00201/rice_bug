@@ -47,10 +47,14 @@ export const taskConfig = [
     new RiceBugTaskImp('4-2', '審核相關成本', Worker.CFO, 3),
     new RiceBugTaskImp('4-3', '開發米 ber RWD', Worker.RD, 4),
     new RiceBugTaskImp('4-4', '建置米 ber RWD', Worker.CM, 4),
-    new RiceBugTaskImp('4-5', '使用 NODE 14 版環境', Worker.LE, 4),
-    new RiceBugTaskImp('4-6', '升級資料庫Config V2', Worker.ITSUPORT, 4),
+    new RiceBugTaskImp('4-5', '使用 NODE 14 版環境', Worker.LE, 2),
+    new RiceBugTaskImp('4-6', '升級資料庫Config V2', Worker.ITSUPORT, 3),
     new RiceBugTaskImp('4-7', '升級Server v2', Worker.TO, 4),
-  ]),
+  ],{
+    config: 2,
+    server: 2,
+    proxy: 1
+  }),
   new RiceBugProjectImp(2, '蝦米購物 無法輸入免運', false,
   { current: -0.5, last:  -0.5 },
   { current: -1000, last: -1000 }, [
@@ -85,7 +89,11 @@ export const taskConfig = [
     new RiceBugTaskImp('8-7', '準備線上刷卡交易憑證', Worker.LE, 4),
     new RiceBugTaskImp('8-8', '建立刷卡紀錄資料庫', Worker.ITSUPORT, 5),
     new RiceBugTaskImp('8-9', '設定刷卡Proxy，並升級Proxy 至V2', Worker.TO, 3),
-  ]),
+  ],{
+    config: 2,
+    server: 2,
+    proxy: 2
+  }),
   new RiceBugProjectImp(3, '米ber 外送員後台', true,
   { current: 3, last: 3 },
   { current: 5000, last: 5000 }, [
@@ -139,7 +147,11 @@ export const taskConfig = [
     new RiceBugTaskImp('12-9', '使用 NODE 14 版環境', Worker.LE, 3),
     new RiceBugTaskImp('12-10', '建置直播資料庫', Worker.ITSUPORT, 5),
     new RiceBugTaskImp('12-11', '架設直播主機', Worker.TO, 5),
-  ]),
+  ],{
+    config: 3,
+    server: 3,
+    proxy: 2
+  }),
   new RiceBugProjectImp(3, '蝦米購物 發票問題', false,
   { current: -1, last:  -1 },
   { current: -1500, last: -1500 }, [
@@ -186,7 +198,11 @@ export const taskConfig = [
     new RiceBugTaskImp('16-7', '評價系統跨平台機制', Worker.LE, 3),
     new RiceBugTaskImp('16-8', '建立評價系統資料庫', Worker.ITSUPORT, 4),
     new RiceBugTaskImp('16-9', '評價即時更新主機建置', Worker.TO, 9),
-  ]),
+  ],{
+    config: 4,
+    server: 4,
+    proxy: 2
+  }),
   new RiceBugProjectImp(4, '蝦米購物 無法登入', false,
   { current: -5, last:  -5 },
   { current: -15000, last: -15000 }, [
@@ -218,7 +234,7 @@ export const trainingConfig  = new RiceBugProjectImp(2, '員工訓練', false,
   { current: 0, last: 0 }, [
     new RiceBugTaskImp('19-1', '對 IT Support 進行技術交流', Worker.RD, 2),
     new RiceBugTaskImp('19-2', '與 IT Support 進行技術交流', Worker.CM, 2),
-    new RiceBugTaskImp('19-3', '進行技術交流訓練', Worker.LE, 4),
+    new RiceBugTaskImp('19-3', '進行技術交流訓練', Worker.LE, 2),
     new RiceBugTaskImp('19-4', '1. 與 AD 進行技術交流 2.對 TO 進行技術交流', Worker.ITSUPORT, 4),
     new RiceBugTaskImp('19-7', '與 IT support 進行技術交流', Worker.TO, 2),
   ]

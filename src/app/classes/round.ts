@@ -8,6 +8,9 @@ export class Round {
     baseAmount: number) {
       this.amount = baseAmount;
       this.point = 0;
+      if(roundID === 1) {
+        this.point = 20;
+      }
       this.isPlanDone = false;
       this.isWorkDone = false;
   }

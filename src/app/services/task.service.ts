@@ -1,3 +1,4 @@
+import { CookieService } from './cookie.service';
 import { Round } from './../classes/round';
 import { Worker } from './../enum/worker.enum';
 import { RiceBugTask } from './../model/RiceBugTask';
@@ -26,23 +27,70 @@ export class TaskService {
     new Round(4, 10000),
   ];
 
-  projectList: RiceBugProject[] = taskConfig.filter(task => task.startRound === 1) ;
+  projectList: RiceBugProject[] = taskConfig;
   trainingConfig: RiceBugProject = trainingConfig;
 
   memberEng = new Map<Worker, number>();
   memberDefaultEng = new Map<Worker, number>();
+  memberLevel = 1;
 
   constructor() {
     this.currentRound = this.rounds[0];
-    this.projectList[0].checkRound = 1;
+    // this.projectList[0].checkRound = 1;
     this.setMemberDefaultEng();
+
+    if(localStorage.getItem('rounds')){
+      this.rounds = JSON.parse(localStorage.getItem('rounds'));
+    }
+
+    if(localStorage.getItem('currentRoundID')){
+      const currentRoundID = Number(localStorage.getItem('currentRoundID'));
+      const currentRound = this.rounds.find(item => item.roundID === currentRoundID);
+      if(currentRound){
+        this.currentRound = currentRound;
+      }
+    }
+    if(localStorage.getItem('projectList')){
+      this.projectList = JSON.parse(localStorage.getItem('projectList'));
+    }
+    if(localStorage.getItem('trainingConfig')){
+      this.trainingConfig = JSON.parse(localStorage.getItem('trainingConfig'));
+    }
+
+
+    if(localStorage.getItem('config')){
+      this.config = JSON.parse(localStorage.getItem('config'));
+    }
+    if(localStorage.getItem('teamName')){
+      this.teamName = localStorage.getItem('teamName');
+    }
+    if(localStorage.getItem('memberLevel')){
+      this.memberLevel = Number(JSON.parse(localStorage.getItem('memberLevel')));
+      if(this.memberLevel === 2){
+        this.setSuperMemberDefaultEng();
+      }
+    }
+
     this.setMemberEng();
+    this.defaultPoint = this.currentRound.point;
+  }
+
+  clearCookie(){
+    localStorage.removeItem('rounds');
+    localStorage.removeItem('currentRoundID');
+    localStorage.removeItem('projectList');
+    localStorage.removeItem('trainingConfig');
+    localStorage.removeItem('memberEng');
+    localStorage.removeItem('memberDefaultEng');
+    localStorage.removeItem('config');
+    localStorage.removeItem('memberLevel');
   }
 
 
 
   nextRound(): void {
-    const hotfixCase = this.projectList.filter(project=> !project.final && !project.isMainProject);
+    const hotfixCase = this.projectList.filter(project=> !project.final && !project.isMainProject && project.startRound <= this.currentRound.roundID);
+    console.log(hotfixCase, this.currentRound.point);
     hotfixCase.forEach(cas=>{
       this.currentRound.point += cas.point.current;
       this.currentRound.amount += cas.price.current;
@@ -55,14 +103,17 @@ export class TaskService {
       nextRound.amount = this.currentRound.amount;
       this.currentRound = nextRound;
 
-      const projectList: RiceBugProject[] = taskConfig.filter(task => task.startRound === nextRound.roundID) ;
-      projectList.forEach(task=>{
-        this.projectList.push(task);
-      });
-
       this.setMemberEng();
     }
+    localStorage.setItem('rounds', JSON.stringify( this.rounds));
+    localStorage.setItem('currentRoundID', String(this.currentRound.roundID));
+    localStorage.setItem('projectList', JSON.stringify( this.projectList));
+    localStorage.setItem('trainingConfig', JSON.stringify( this.trainingConfig));
 
+    localStorage.setItem('memberLevel', JSON.stringify(this.memberLevel));
+    localStorage.setItem('config', JSON.stringify( this.config));
+    localStorage.setItem('teamName', ( this.teamName));
+    this.defaultPoint = this.currentRound.point;
   }
 
   close(project: RiceBugProject, currentRound: Round): void{
@@ -77,6 +128,15 @@ export class TaskService {
   }
 
   checkinTask(id: string): void {
+    const allTaskList: RiceBugTask[] = [].concat.apply([], [...this.projectList.map(project=> project.taskList)]); ;
+    console.log(allTaskList);
+    const currentTask = allTaskList.find(item=> item.id === id);
+    console.log(currentTask)
+
+    if(!currentTask){
+      return;
+    }
+
     console.log(id)
     const projectID = +id.split('-')[0]-1;
     if(projectID === 18){
@@ -89,10 +149,30 @@ export class TaskService {
 
     this.checkConfigUpdate(id);
     const project: RiceBugProject = this.projectList[projectID];
+    console.log(project);
     if (project) {
       this.updateMemberEngWhenFinalProject(project, id);
       this.checkProjectIsDone(project);
     }
+
+    new Audio('assets/sc.mp3').play();
+  }
+
+  removeTask(id: string): void {
+    const allTaskList: RiceBugTask[] = [].concat.apply([], [...this.projectList.map(project=> project.taskList)]); ;
+    console.log(allTaskList);
+    const currentTask = allTaskList.find(item=> item.id === id);
+    console.log(currentTask)
+
+    if(!currentTask){
+      return;
+    }
+
+    if(currentTask.final){
+      this.memberEng.set(currentTask.worker, this.memberEng.get(currentTask.worker) + currentTask.point);
+      currentTask.final = false;
+    }
+
   }
 
   private updateTraining(id: string){
@@ -113,7 +193,17 @@ export class TaskService {
   }
 
   private updateMemberEngWhenFinalProject(project: RiceBugProject, id: string) {
-    const task: RiceBugTask = project.taskList[+id.split('-')[1] - 1];
+    let taskID = +id.split('-')[1] - 1;
+    let task: RiceBugTask = project.taskList[taskID];
+    console.log(project.name)
+    if(project.name === '蝦米購物 無法登入'){
+      console.log(task)
+      if(taskID > 3){
+        task = project.taskList[taskID -1];
+        console.log(task)
+      }
+    }
+
     if (task && task.final === false) {
       if(this.memberEng.get(task.worker) - task.point < 0){
         alert(task.worker+'沒有體力摟');
@@ -163,8 +253,10 @@ export class TaskService {
     if( this.config[config] - level <= -1){
       this.config[config] = level;
       this.projectList.forEach(project=> this.checkProjectIsDone(project));
-    } else {
-      alert(`請先升級${config}:level${level-1}`);
+    } else if(this.config[config] === level){
+      return;
+    } else{
+      alert(`請先升級${config}:level${level}`);
     }
 
     this.updateMemberEngWhenUpdateConfig(config);
@@ -202,8 +294,9 @@ export class TaskService {
     this.memberDefaultEng.set(Worker.RD, 40);
     this.memberDefaultEng.set(Worker.CM, 40);
     this.memberDefaultEng.set(Worker.LE, 10);
-    this.memberDefaultEng.set(Worker.ITSUPORT, 15);
-    this.memberDefaultEng.set(Worker.TO, 20);
+    this.memberDefaultEng.set(Worker.ITSUPORT, 30);
+    this.memberDefaultEng.set(Worker.TO, 40);
+    this.memberLevel = 2;
   }
   private setMemberEng() {
     this.memberEng.set(Worker.RO, this.memberDefaultEng.get(Worker.RO));

@@ -66,6 +66,10 @@ export class HomeComponent implements OnInit {
     this.taskService.checkinTask(id);
   }
 
+  remove(id){
+    this.taskService.removeTask(id);
+  }
+
   private startCountDown(): Observable<number> {
     // 20分鐘
     this.countDown = 1200;

@@ -1,6 +1,9 @@
 
 <input type="text" [value]="taskService.teamName" (input)="changeName($event.target.value) ">
 <div>
+  <button (click)="taskService.clearCookie()">清除資料</button>
+</div>
+<div>
   當前回合：{{taskService.currentRound.roundID}}
   <br>
   當前秒數：{{countDown | countdown}}
@@ -41,14 +44,15 @@
 <button *ngIf="!taskService.currentRound.isWorkDone && taskService.currentRound.isPlanDone" (click)="doWork()">do Work</button>
 <a [routerLink]="[ '/scanner' ]" *ngIf="taskService.currentRound.isPlanDone && taskService.currentRound.isWorkDone">計分</a>
 <button *ngIf="taskService.currentRound.isPlanDone && taskService.currentRound.isWorkDone" (click)="nextRund()">nextRund</button>
-<div *ngIf="taskService.currentRound.roundID>0" class="project">
+<div *ngIf="taskService.currentRound.roundID>1" class="project">
   <span class="project-info">{{taskService.trainingConfig.name}}</span>
   <span class="project-info" [class.final]="taskService.trainingConfig.done">完成狀態:{{taskService.trainingConfig.done}}</span>
   <span class="project-info" [class.final]="taskService.trainingConfig.final">結案:{{taskService.trainingConfig.final}}</span>
 
   <div>員工訓練:</div>
   <div *ngFor="let task of taskService.trainingConfig.taskList" class="task">
-    <button (click)="done(task.id)">V</button>
+    <button (click)="done(task.id)" *ngIf="!taskService.trainingConfig.final">V</button>
+    <button (click)="remove(task.id)" *ngIf="!taskService.trainingConfig.final">X</button>
     <span class="project-info">任務id:{{task.id}}</span>
     <span class="project-info">任務名稱:{{task.name}}</span>
     <span class="project-info">任務者:{{task.worker}}</span>
@@ -69,7 +73,8 @@
 
   <div>任務項目:</div>
   <div *ngFor="let task of project.taskList" class="task">
-    <button (click)="done(task.id)">V</button>
+    <button (click)="done(task.id)" *ngIf="!project.final">V</button>
+    <button (click)="remove(task.id)" *ngIf="!project.final">X</button>
     <span class="project-info">任務id:{{task.id}}</span>
     <span class="project-info">任務名稱:{{task.name}}</span>
     <span class="project-info">任務者:{{task.worker}}</span>
