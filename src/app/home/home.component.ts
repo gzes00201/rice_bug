@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
     // 20分鐘
     this.countDown = 1200;
     return interval(1000).pipe(
-      take(10),
+      take(1),
       tap(() => {
         if (this.countDown === 600) {
           new Audio('assets/rain.mp3').play();
