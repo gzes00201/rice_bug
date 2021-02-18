@@ -79,7 +79,9 @@
       <span class="project-info">專案項目:{{project.name}}</span>
       <span class="project-info" [class.final]="project.done">完成狀態:{{project.done}}</span>
       <span class="project-info" [class.final]="project.final">結案:{{project.final}}</span>
-      <span class="project-info" *ngIf="project.config ">所需設定:{{project.config | json}}
+    </mat-card-title>
+    <mat-card-title  *ngIf="project.config ">
+      <span class="project-info">{{project.config | json}}
         <button (click)="done('config0'+project.config.config)">config</button>
         <button (click)="done('server0'+project.config.server)">server</button>
         <button (click)="done('proxy0'+project.config.proxy)">proxy</button>
@@ -88,15 +90,18 @@
   </mat-card-header>
   <mat-card-content>
     <mat-list>
-      <mat-list-item *ngFor="let task of project.taskList" >
-        <button (click)="done(task.id)" *ngIf="!project.final">V</button>
-    <button (click)="remove(task.id)" *ngIf="!project.final">X</button>
-    <span class="project-info">任務id:{{task.id}}</span>
-    <span class="project-info">任務名稱:{{task.name}}</span>
-    <span class="project-info">任務者:{{task.worker}}</span>
-    <span class="project-info">點數:{{task.point}}</span>
-    <span class="project-info" [class.final]="task.final">任務狀態:{{task.final}}</span>
-      </mat-list-item>
+      <ng-container *ngFor="let task of project.taskList">
+        <mat-list-item >
+          <button (click)="done(task.id)" *ngIf="!project.final">V</button>
+          <button (click)="remove(task.id)" *ngIf="!project.final">X</button>
+          <span class="project-info">{{task.id}}:{{task.name}}</span>
+        </mat-list-item>
+        <mat-list-item>
+          <span class="project-info">任務者:{{task.worker}}</span>
+          <span class="project-info">點數:{{task.point}}</span>
+          <span class="project-info" [class.final]="task.final">任務狀態:{{task.final}}</span>
+        </mat-list-item>
+      </ng-container>
      </mat-list>
   </mat-card-content>
   <mat-card-actions>
