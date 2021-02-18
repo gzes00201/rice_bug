@@ -128,6 +128,7 @@ export class TaskService {
   }
 
   checkinTask(id: string): void {
+    this.checkConfigUpdate(id);
     const allTaskList: RiceBugTask[] = [].concat.apply([], [...this.projectList.map(project=> project.taskList)]); ;
     console.log(allTaskList);
     const currentTask = allTaskList.find(item=> item.id === id);
@@ -151,6 +152,7 @@ export class TaskService {
     const project: RiceBugProject = this.projectList[projectID];
     console.log(project);
     if (project) {
+      console.log('inin')
       this.updateMemberEngWhenFinalProject(project, id);
       this.checkProjectIsDone(project);
     }
@@ -237,6 +239,7 @@ export class TaskService {
   }
 
   private updateConfig(config: string, level: number){
+    console.log('updateConfig')
     if(config === 'config' && this.memberEng.get(Worker.ITSUPORT) <= 0){
         alert('IT Suport 沒有體力摟');
         return;

@@ -9,6 +9,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CountdownPipe } from './pipe/countdown.pipe';
 // import { Tp2Module } from './modules/tp2/tp2.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatListModule} from '@angular/material/list';
+import {MatCardModule} from '@angular/material/card';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,8 +23,12 @@ import { CountdownPipe } from './pipe/countdown.pipe';
     BrowserModule,
     AppRoutingModule,
     ZXingScannerModule,
+    MatListModule,
+    MatCardModule,
+    BrowserAnimationsModule,
     // Tp2Module,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

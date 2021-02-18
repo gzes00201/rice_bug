@@ -44,42 +44,66 @@
 <button *ngIf="!taskService.currentRound.isWorkDone && taskService.currentRound.isPlanDone" (click)="doWork()">do Work</button>
 <a [routerLink]="[ '/scanner' ]" *ngIf="taskService.currentRound.isPlanDone && taskService.currentRound.isWorkDone">計分</a>
 <button *ngIf="taskService.currentRound.isPlanDone && taskService.currentRound.isWorkDone" (click)="nextRund()">nextRund</button>
-<div *ngIf="taskService.currentRound.roundID>1" class="project">
-  <span class="project-info">{{taskService.trainingConfig.name}}</span>
-  <span class="project-info" [class.final]="taskService.trainingConfig.done">完成狀態:{{taskService.trainingConfig.done}}</span>
-  <span class="project-info" [class.final]="taskService.trainingConfig.final">結案:{{taskService.trainingConfig.final}}</span>
 
-  <div>員工訓練:</div>
-  <div *ngFor="let task of taskService.trainingConfig.taskList" class="task">
-    <button (click)="done(task.id)" *ngIf="!taskService.trainingConfig.final">V</button>
-    <button (click)="remove(task.id)" *ngIf="!taskService.trainingConfig.final">X</button>
-    <span class="project-info">任務id:{{task.id}}</span>
-    <span class="project-info">任務名稱:{{task.name}}</span>
-    <span class="project-info">任務者:{{task.worker}}</span>
-    <span class="project-info">點數:{{task.point}}</span>
-    <span class="project-info" [class.final]="task.final">任務狀態:{{task.final}}</span>
-  </div>
-  <button *ngIf="taskService.trainingConfig.done && !taskService.trainingConfig.final" (click)="taskService.close(taskService.trainingConfig, taskService.currentRound)">結案</button>
-</div>
-<div *ngFor="let project of taskService.projectList" class="project">
-  <span class="project-info">專案項目:{{project.name}}</span>
-  <span class="project-info" [class.final]="project.done">完成狀態:{{project.done}}</span>
-  <span class="project-info" [class.final]="project.final">結案:{{project.final}}</span>
-  <span class="project-info" *ngIf="project.config ">所需設定:{{project.config | json}}
-    <button (click)="done('config0'+project.config.config)">config</button>
-    <button (click)="done('server0'+project.config.server)">server</button>
-    <button (click)="done('proxy0'+project.config.proxy)">proxy</button>
-  </span>
+<mat-card class="example-card"  *ngIf="taskService.currentRound.roundID>1" >
+  <mat-card-header>
+    <mat-card-title>
+      <span class="project-info">專案項目:{{taskService.trainingConfig.name}}</span>
+      <span class="project-info" [class.final]="taskService.trainingConfig.done">完成狀態:{{taskService.trainingConfig.done}}</span>
+      <span class="project-info" [class.final]="taskService.trainingConfig.final">結案:{{taskService.trainingConfig.final}}</span>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let task of taskService.trainingConfig.taskList" >
+        <button (click)="done(task.id)" *ngIf="!taskService.trainingConfig.final">V</button>
+        <button (click)="remove(task.id)" *ngIf="!taskService.trainingConfig.final">X</button>
+        <span class="project-info">任務id:{{task.id}}</span>
+        <span class="project-info">任務名稱:{{task.name}}</span>
+        <span class="project-info">任務者:{{task.worker}}</span>
+        <span class="project-info">點數:{{task.point}}</span>
+        <span class="project-info" [class.final]="task.final">任務狀態:{{task.final}}</span>
+      </mat-list-item>
+     </mat-list>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button *ngIf="taskService.trainingConfig.done && !taskService.trainingConfig.final" (click)="taskService.close(taskService.trainingConfig, taskService.currentRound)">
+      結案
+    </button>
+  </mat-card-actions>
+</mat-card>
 
-  <div>任務項目:</div>
-  <div *ngFor="let task of project.taskList" class="task">
-    <button (click)="done(task.id)" *ngIf="!project.final">V</button>
+<mat-card class="example-card"  *ngFor="let project of taskService.projectList"  >
+  <mat-card-header>
+    <mat-card-title>
+      <span class="project-info">專案項目:{{project.name}}</span>
+      <span class="project-info" [class.final]="project.done">完成狀態:{{project.done}}</span>
+      <span class="project-info" [class.final]="project.final">結案:{{project.final}}</span>
+      <span class="project-info" *ngIf="project.config ">所需設定:{{project.config | json}}
+        <button (click)="done('config0'+project.config.config)">config</button>
+        <button (click)="done('server0'+project.config.server)">server</button>
+        <button (click)="done('proxy0'+project.config.proxy)">proxy</button>
+      </span>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let task of project.taskList" >
+        <button (click)="done(task.id)" *ngIf="!project.final">V</button>
     <button (click)="remove(task.id)" *ngIf="!project.final">X</button>
     <span class="project-info">任務id:{{task.id}}</span>
     <span class="project-info">任務名稱:{{task.name}}</span>
     <span class="project-info">任務者:{{task.worker}}</span>
     <span class="project-info">點數:{{task.point}}</span>
     <span class="project-info" [class.final]="task.final">任務狀態:{{task.final}}</span>
-  </div>
-  <button *ngIf="project.done && !project.final" (click)="taskService.close(project, taskService.currentRound)">結案</button>
-</div>
+      </mat-list-item>
+     </mat-list>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button *ngIf="project.done && !project.final" (click)="taskService.close(project, taskService.currentRound)">
+      結案
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<button mat-raised-button color="primary">Hello World！</button>
