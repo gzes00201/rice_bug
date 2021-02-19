@@ -90,8 +90,8 @@ export const taskConfig = [
     new RiceBugTaskImp('8-8', '建立刷卡紀錄資料庫', Worker.ITSUPORT, 5),
     new RiceBugTaskImp('8-9', '設定刷卡Proxy，並升級Proxy 至V2', Worker.TO, 3),
   ],{
-    config: 2,
-    server: 2,
+    config: 1,
+    server: 1,
     proxy: 2
   }),
   new RiceBugProjectImp(3, '9.米ber 外送員後台', true,
@@ -150,7 +150,7 @@ export const taskConfig = [
   ],{
     config: 3,
     server: 3,
-    proxy: 2
+    proxy: 1
   }),
   new RiceBugProjectImp(3, '13.蝦米購物 發票問題', false,
   { current: -1, last:  -1 },
@@ -266,7 +266,11 @@ export const taskConfig = [
     new RiceBugTaskImp('22-10', '增加薪資系統資料庫欄位', Worker.ITSUPORT, 3),
     new RiceBugTaskImp('22-11', '架設獎金系統主機 升級 Server v.3', Worker.TO, 4),
     new RiceBugTaskImp('22-12', '重啟薪資系統主機', Worker.TO, 3),
-  ]),
+  ],{
+    config: 3,
+    server: 3,
+    proxy: 1
+  }),
   new RiceBugProjectImp(3, '23.米 Ber 商家活動系統', false,
   { current: 3, last:  3 },
   { current: 15000, last: 15000 }, [
@@ -276,7 +280,11 @@ export const taskConfig = [
     new RiceBugTaskImp('23-4', '米 ber商家活動系統建置', Worker.LE, 3),
     new RiceBugTaskImp('23-5', '建立商家活動系統資料庫', Worker.ITSUPORT, 3),
     new RiceBugTaskImp('23-6', '設定商家線路，並升級 Proxy 至 v.3', Worker.TO, 3),
-  ]),
+  ],{
+    config: 1,
+    server: 1,
+    proxy: 3
+  }),
   new RiceBugProjectImp(2, '24.蝦米購物境外交易系統', false,
   { current: 2, last:  2 },
   { current: 10000, last: 10000 }, [
@@ -286,7 +294,11 @@ export const taskConfig = [
     new RiceBugTaskImp('24-4', '境外交易系統建置，通知 TO 更新 Server 版本', Worker.LE, 2),
     new RiceBugTaskImp('24-5', '建立境外交易系統資料庫 升級資料庫 Config v.2', Worker.ITSUPORT, 5),
     new RiceBugTaskImp('24-6', '架設境外交易主機 升級 Server v.2', Worker.TO, 2),
-  ]),
+  ],{
+    config: 2,
+    server: 2,
+    proxy: 1
+  }),
   new RiceBugProjectImp(3, '25.米倉公司財務報表異常', false,
   { current: -5, last:  -5 },
   { current: -5000, last: -5000 }, [
@@ -359,7 +371,11 @@ export const taskConfig = [
     new RiceBugTaskImp('32-4', '更新 MIJI POS 系統支援行動支付', Worker.LE, 2),
     new RiceBugTaskImp('32-5', '新增行動支付資料表 升級資料庫 Config v.5', Worker.ITSUPORT, 5),
     new RiceBugTaskImp('32-6', '建立金融機構行動支付連線 升級 Proxy v.5', Worker.TO, 2),
-  ]),
+  ],{
+    config: 5,
+    server: 1,
+    proxy: 5
+  }),
   new RiceBugProjectImp(4, '33.MIJI 管理系統新增員工績效圖表', false,
   { current: 0, last:  0 },
   { current: 5000, last: 5000 }, [
@@ -413,7 +429,11 @@ export const taskConfig = [
     new RiceBugTaskImp('37-10', '檢查系統軟體版本', Worker.ITSUPORT, 3),
     new RiceBugTaskImp('37-11', '擴充資料庫儲存空間', Worker.TO, 3),
     new RiceBugTaskImp('37-12', '擴充伺服器主機 升級 Proxy v.5', Worker.TO, 3),
-  ]),
+  ],{
+    config: 1,
+    server: 1,
+    proxy: 5
+  }),
   new RiceBugProjectImp(4, '38.黑米宅急便外包商系統異常', false,
   { current: -0.5, last:  -0.5 },
   { current: -10000, last: -10000 }, [
@@ -457,7 +477,11 @@ export const taskConfig = [
     new RiceBugTaskImp('42-4', '建置貨運系統集貨服務', Worker.LE, 2),
     new RiceBugTaskImp('42-5', '新增集運資料庫 升級資料庫 Config v.4', Worker.ITSUPORT, 5),
     new RiceBugTaskImp('42-6', '建立集運服務主機 升級 Proxy v.4 升級 Server v.4', Worker.TO, 4),
-  ]),
+  ],{
+    config: 4,
+    server: 4,
+    proxy: 4
+  }),
   new RiceBugProjectImp(4, '43.黑米宅急便 24 小時到貨服務', false,
   { current: 0, last:  0 },
   { current: 10000, last: 10000 }, [
@@ -468,7 +492,11 @@ export const taskConfig = [
     new RiceBugTaskImp('43-5', '建立 24 小時到貨服務相關邏輯', Worker.LE, 2),
     new RiceBugTaskImp('43-6', '更新資料庫 升級資料庫 Config v.5', Worker.ITSUPORT, 5),
     new RiceBugTaskImp('43-7', '擴充伺服器主機 升級 Server v.5', Worker.LE, 4),
-  ]),
+  ],{
+    config: 5,
+    server: 5,
+    proxy: 1
+  }),
   new RiceBugProjectImp(3, '44.黑米宅急便特約商家運費優惠活動', false,
   { current: 0, last:  0 },
   { current: 5000, last: 5000 }, [
@@ -478,7 +506,11 @@ export const taskConfig = [
     new RiceBugTaskImp('44-4', '建立特約商家資訊', Worker.LE, 2),
     new RiceBugTaskImp('44-5', '新增特約商家資料庫 升級資料庫 Config v.4', Worker.ITSUPORT, 5),
     new RiceBugTaskImp('44-6', '建立特約商家連線 升級 Proxy v.4', Worker.TO, 3),
-  ]),
+  ],{
+    config: 4,
+    server: 1,
+    proxy: 4
+  }),
   new RiceBugProjectImp(4, '45.蝦米購物雙 11 免運活動', false,
   { current: 0, last:  0 },
   { current: 5000, last: 5000 }, [
@@ -488,7 +520,11 @@ export const taskConfig = [
     new RiceBugTaskImp('45-4', '更新運費計算方式', Worker.LE, 2),
     new RiceBugTaskImp('45-5', '更新運費資料表 升級資料庫 Config v.5', Worker.ITSUPORT, 5),
     new RiceBugTaskImp('45-6', '擴充伺服器主機 升級 Server v.5', Worker.TO, 4),
-  ]),
+  ],{
+    config: 5,
+    server: 5,
+    proxy: 1
+  }),
   new RiceBugProjectImp(3, '46.米 Ber  邀請活動', false,
   { current: 0, last:  0 },
   { current: 5000, last: 5000 }, [
@@ -498,7 +534,11 @@ export const taskConfig = [
     new RiceBugTaskImp('46-4', '建置邀請碼相關邏輯', Worker.LE, 2),
     new RiceBugTaskImp('46-5', '用戶資料庫新增邀請碼欄位 升級資料庫 Config v.3', Worker.ITSUPORT, 5),
     new RiceBugTaskImp('46-6', '擴充伺服器主機 升級 Server v.2', Worker.TO, 4),
-  ]),
+  ],{
+    config: 3,
+    server: 2,
+    proxy: 1
+  }),
   new RiceBugProjectImp(2, '47.米倉公司形象網站更新', false,
   { current: 0, last:  0 },
   { current: 5000, last: 5000 }, [
