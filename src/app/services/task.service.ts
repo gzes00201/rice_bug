@@ -139,7 +139,7 @@ export class TaskService {
     }
 
     console.log(id)
-    const projectID = +id.split('-')[0]-1;
+    let projectID = +id.split('-')[0]-1;
     if(projectID === 18){
       // 進入員工訓練
       console.log(id)
@@ -148,6 +148,10 @@ export class TaskService {
       return ;
     }
 
+    if(projectID > 18){
+      projectID = projectID-1;
+    }
+    console.log(projectID)
     this.checkConfigUpdate(id);
     const project: RiceBugProject = this.projectList[projectID];
     console.log(project);
