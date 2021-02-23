@@ -187,7 +187,7 @@ export const taskConfig = [
 
   // 第四回合
   new RiceBugProjectImp(4, '16.蝦米ber 評價系統', true,
-  { current: 3, last:  -1 },
+  { current: 3, last:  1 },
   { current: 20000, last: 20000 }, [
     new RiceBugTaskImp('16-1', '新增評價系統 確認相關規格與功能方向', Worker.RO, 3),
     new RiceBugTaskImp('16-2', '審核評價系統的製作成本', Worker.CFO, 3),
@@ -551,8 +551,8 @@ export const taskConfig = [
   ]),
 ];
 export const trainingConfig  = new RiceBugProjectImp(2, '19.員工訓練', false,
-  { current: 3, last: 3 },
-  { current: 10000, last: 10000 }, [
+  { current: 0, last: 0 },
+  { current: 0, last: 0 }, [
     new RiceBugTaskImp('19-1', '對 IT Support 進行技術交流', Worker.RD, 2),
     new RiceBugTaskImp('19-2', '更新米倉公司形象網站', Worker.CM, 3),
     new RiceBugTaskImp('19-3', '進行技術交流訓練', Worker.LE, 2),

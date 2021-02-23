@@ -70,6 +70,10 @@ export class HomeComponent implements OnInit {
     this.taskService.removeTask(id);
   }
 
+  superTraining(member1: Worker, member2: Worker){
+    this.taskService.superTraining(member1, member2)
+  }
+
   private startCountDown(): Observable<number> {
     // 20分鐘
     this.countDown = 1200;

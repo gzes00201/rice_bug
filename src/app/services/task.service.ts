@@ -34,6 +34,11 @@ export class TaskService {
   memberDefaultEng = new Map<Worker, number>();
   memberLevel = 1;
 
+  leAndtoTogether: boolean = false;
+  leAndITSTogether: boolean= false;
+  rdAndcmTogether: boolean= false;
+  supportWorker: Worker;
+
   constructor() {
     this.currentRound = this.rounds[0];
     // this.projectList[0].checkRound = 1;
@@ -84,12 +89,15 @@ export class TaskService {
     localStorage.removeItem('memberDefaultEng');
     localStorage.removeItem('config');
     localStorage.removeItem('memberLevel');
+    localStorage.removeItem('leAndtoTogether');
+    localStorage.removeItem('leAndITSTogether');
+    localStorage.removeItem('rdAndcmTogether');
   }
 
 
 
   nextRound(): void {
-    const hotfixCase = this.projectList.filter(project=> !project.final && !project.isMainProject && project.startRound <= this.currentRound.roundID);
+    const hotfixCase = this.projectList.filter(project=> !project.final && !project.isMainProject && project.price.current <=0 && project.point.current <=0 && project.startRound <= this.currentRound.roundID);
     console.log(hotfixCase, this.currentRound.point);
     hotfixCase.forEach(cas=>{
       this.currentRound.point += cas.point.current;
@@ -113,31 +121,29 @@ export class TaskService {
     localStorage.setItem('memberLevel', JSON.stringify(this.memberLevel));
     localStorage.setItem('config', JSON.stringify( this.config));
     localStorage.setItem('teamName', ( this.teamName));
+
+    localStorage.setItem('leAndtoTogether', JSON.stringify(this.leAndtoTogether));
+    localStorage.setItem('leAndITSTogether', JSON.stringify( this.leAndITSTogether));
+    localStorage.setItem('rdAndcmTogether', JSON.stringify( this.rdAndcmTogether));
+
     this.defaultPoint = this.currentRound.point;
   }
 
   close(project: RiceBugProject, currentRound: Round): void{
-    if (project.isMainProject){
+    if (project.isMainProject || project.price.current > 0){
+      console.log(currentRound.amount, project)
       this.defaultPoint += project.checkRound === currentRound.roundID ?
          project.point.current :  project.point.last ;
       currentRound.amount += project.checkRound === currentRound.roundID ?
       project.price.current :  project.price.last ;
       currentRound.point = this.defaultPoint;
+      console.log(currentRound.amount)
     }
     project.final = true;
   }
 
   checkinTask(id: string): void {
     this.checkConfigUpdate(id);
-    const allTaskList: RiceBugTask[] = [].concat.apply([], [...this.projectList.map(project=> project.taskList)]); ;
-    console.log(allTaskList);
-    const currentTask = allTaskList.find(item=> item.id === id);
-    console.log(currentTask)
-
-    if(!currentTask){
-      return;
-    }
-
     console.log(id)
     let projectID = +id.split('-')[0]-1;
     if(projectID === 18){
@@ -147,6 +153,17 @@ export class TaskService {
       this.checkTrainingIsDone()
       return ;
     }
+
+    const allTaskList: RiceBugTask[] = [].concat.apply([], [...this.projectList.map(project=> project.taskList)]); ;
+    console.log(allTaskList);
+    const currentTask = allTaskList.find(item=> item.id === id);
+    console.log(currentTask)
+
+    if(!currentTask){
+      return;
+    }
+
+
 
     if(projectID > 18){
       projectID = projectID-1;
@@ -181,6 +198,38 @@ export class TaskService {
 
   }
 
+  superTraining(member1: Worker, member2: Worker){
+    if(member1 === Worker.LE && member2 === Worker.TO && this.leAndtoTogether === false) {
+      this.superTrainingMember(member1, member2);
+      this.leAndtoTogether = true;
+    }
+
+    if(member1 === Worker.LE && member2 === Worker.ITSUPORT && this.leAndITSTogether === false) {
+      this.superTrainingMember(member1, member2);
+      this.leAndITSTogether = true;
+    }
+
+    if(member1 === Worker.RD && member2 === Worker.CM && this.rdAndcmTogether === false) {
+      this.superTrainingMember(member1, member2);
+      this.rdAndcmTogether = true;
+    }
+  }
+
+  setSuperWorker(member1: Worker){
+    if(this.supportWorker === member1){
+      this.supportWorker = null;
+    } else {
+      this.supportWorker = member1;
+    }
+  }
+
+  private superTrainingMember(member1: Worker, member2: Worker) {
+    if (this.memberEng.get(member1) - 2 > 0 && this.memberEng.get(member2) - 2 > 0) {
+      this.memberEng.set(member1, this.memberEng.get(member1) - 2);
+      this.memberEng.set(member2, this.memberEng.get(member2) - 2);
+    }
+  }
+
   private updateTraining(id: string){
     const traing = this.trainingConfig.taskList.find(item=> item.id === id);
     if(traing){
@@ -200,23 +249,30 @@ export class TaskService {
 
   private updateMemberEngWhenFinalProject(project: RiceBugProject, id: string) {
     let taskID = +id.split('-')[1] - 1;
-    let task: RiceBugTask = project.taskList[taskID];
+    console.log(id)
+    let task: RiceBugTask = project.taskList.find(item=> item.id === id);
     console.log(project.name)
-    if(project.name === '蝦米購物 無法登入'){
-      console.log(task)
-      if(taskID > 3){
-        task = project.taskList[taskID -1];
-        console.log(task)
-      }
-    }
-
+    // if(project.name === '蝦米購物 無法登入'){
+    //   console.log(task)
+    //   if(taskID > 3){
+    //     task = project.taskList[taskID -1];
+    //     console.log(task)
+    //   }
+    // }
+    console.log(task)
     if (task && task.final === false) {
-      if(this.memberEng.get(task.worker) - task.point < 0){
-        alert(task.worker+'沒有體力摟');
+      let currentWorker: Worker = task.worker;
+
+      if(this.supportWorker!== null) {
+        currentWorker = this.supportWorker;
+      }
+
+      if(this.memberEng.get(currentWorker) - task.point < 0){
+        alert(currentWorker+'沒有體力摟');
         return;
       } else{
         task.final = true;
-        this.memberEng.set(task.worker, this.memberEng.get(task.worker)-task.point);
+        this.memberEng.set(currentWorker, this.memberEng.get(currentWorker)-task.point);
       }
 
     }
