@@ -37,7 +37,7 @@ export class TaskService {
   leAndtoTogether: boolean = false;
   leAndITSTogether: boolean= false;
   rdAndcmTogether: boolean= false;
-  supportWorker: Worker;
+  supportWorker: Worker = null;
 
   constructor() {
     this.currentRound = this.rounds[0];
@@ -75,7 +75,15 @@ export class TaskService {
         this.setSuperMemberDefaultEng();
       }
     }
-
+    if(localStorage.getItem('leAndtoTogether')){
+      this.leAndtoTogether = !!(JSON.parse(localStorage.getItem('leAndtoTogether')));
+    }
+    if(localStorage.getItem('leAndITSTogether')){
+      this.leAndITSTogether = !!(JSON.parse(localStorage.getItem('leAndITSTogether')));
+    }
+    if(localStorage.getItem('rdAndcmTogether')){
+      this.rdAndcmTogether = !!(JSON.parse(localStorage.getItem('rdAndcmTogether')));
+    }
     this.setMemberEng();
     this.defaultPoint = this.currentRound.point;
   }
@@ -192,7 +200,13 @@ export class TaskService {
     }
 
     if(currentTask.final){
-      this.memberEng.set(currentTask.worker, this.memberEng.get(currentTask.worker) + currentTask.point);
+      if(currentTask.worker === Worker.RO || currentTask.worker === Worker.CFO){
+        this.memberEng.set(Worker.RO, this.memberEng.get(Worker.RO) + currentTask.point);
+        this.memberEng.set(Worker.CFO, this.memberEng.get(Worker.CFO) + currentTask.point);
+      } else {
+        this.memberEng.set(currentTask.worker, this.memberEng.get(currentTask.worker) + currentTask.point);
+      }
+
       currentTask.final = false;
     }
 
@@ -262,17 +276,22 @@ export class TaskService {
     console.log(task)
     if (task && task.final === false) {
       let currentWorker: Worker = task.worker;
-
+      console.log(currentWorker)
       if(this.supportWorker!== null) {
         currentWorker = this.supportWorker;
       }
-
+      console.log(currentWorker)
       if(this.memberEng.get(currentWorker) - task.point < 0){
         alert(currentWorker+'沒有體力摟');
         return;
       } else{
         task.final = true;
-        this.memberEng.set(currentWorker, this.memberEng.get(currentWorker)-task.point);
+        if(currentWorker === Worker.RO || currentWorker === Worker.CFO){
+          this.memberEng.set(Worker.RO, this.memberEng.get(Worker.RO)-task.point);
+          this.memberEng.set(Worker.CFO, this.memberEng.get(Worker.CFO)-task.point);
+        }else {
+          this.memberEng.set(currentWorker, this.memberEng.get(currentWorker)-task.point);
+        }
       }
 
     }

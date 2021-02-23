@@ -80,7 +80,7 @@ export const taskConfig = [
   new RiceBugProjectImp(3, '8.米ber 信用卡', true,
   { current: 3, last:  1 },
   { current: 10000, last: 10000 }, [
-    new RiceBugTaskImp('8-1', '確認信用卡功能規格及操作流程', Worker.RO, 3),
+    new RiceBugTaskImp('8-1', '確認信用卡功能規格及操作流程', Worker.RO, 2),
     new RiceBugTaskImp('8-2', '審核相關成本', Worker.CFO, 2),
     new RiceBugTaskImp('8-3', '開發米 ber 線上刷卡系統', Worker.RD, 5),
     new RiceBugTaskImp('8-4', '通知 IT Suport刷卡資料庫需更新', Worker.RD, 3),
@@ -98,7 +98,6 @@ export const taskConfig = [
   { current: 3, last: 3 },
   { current: 5000, last: 5000 }, [
     new RiceBugTaskImp('9-1', '確認後台目標對象以及核心功能', Worker.RO, 3),
-    new RiceBugTaskImp('9-2', '審核相關成本', Worker.CFO, 3),
     new RiceBugTaskImp('9-3', '開發米 ber 外送員後台', Worker.RD, 4),
     new RiceBugTaskImp('9-4', '開發米 ber 外送員後台薪資派發系統', Worker.RD, 4),
     new RiceBugTaskImp('9-5', '開發米 ber 外送員後台', Worker.CM, 4),
@@ -111,7 +110,6 @@ export const taskConfig = [
   { current: 3, last: 3 },
   { current: 10000, last: 10000 }, [
     new RiceBugTaskImp('10-1', '確認GPS的需求', Worker.RO, 3),
-    new RiceBugTaskImp('10-2', '審核相關成本', Worker.CFO, 3),
     new RiceBugTaskImp('10-3', '開發米 ber GPS 定位功能', Worker.RD, 3),
     new RiceBugTaskImp('10-4', '開發米 ber 定位外送員追蹤功能', Worker.RD, 4),
     new RiceBugTaskImp('10-5', '開發米 ber GPS 定位功能', Worker.CM, 3),
@@ -124,7 +122,6 @@ export const taskConfig = [
   { current: 3, last: 3 },
   { current: 20000, last: 20000 }, [
     new RiceBugTaskImp('11-1', '參與使用者訪談', Worker.RO, 3),
-    new RiceBugTaskImp('11-2', '審核相關成本', Worker.CFO, 3),
     new RiceBugTaskImp('11-3', '開發米 ber APP', Worker.RD, 5),
     new RiceBugTaskImp('11-4', '申請米 ber APP於數位平台上架', Worker.RD, 5),
     new RiceBugTaskImp('11-5', '開發米 ber APP', Worker.CM, 5),
@@ -137,7 +134,6 @@ export const taskConfig = [
   { current: 3, last: 3 },
   { current: 10000, last: 10000 }, [
     new RiceBugTaskImp('12-1', '確認直播功能的主要方向', Worker.RO, 3),
-    new RiceBugTaskImp('12-2', '審核相關成本', Worker.CFO, 3),
     new RiceBugTaskImp('12-3', '開發蝦米購物直播功能 ', Worker.RD, 4),
     new RiceBugTaskImp('12-4', '協助 TO 直播 server 需更新', Worker.RD, 1),
     new RiceBugTaskImp('12-5', '協助 LE 使用 NODE 16 版環境', Worker.RD, 1),
@@ -237,10 +233,10 @@ export const taskConfig = [
     new RiceBugTaskImp('20-4', '更新薪資系統所得稅公司代扣邏輯', Worker.RD, 3),
     new RiceBugTaskImp('20-5', '新的會計系統上線', Worker.CM, 3),
     new RiceBugTaskImp('20-6', '更新薪資系統', Worker.CM, 3),
-    new RiceBugTaskImp('20-7', '協助會計系統架設', Worker.LE, 2),
-    new RiceBugTaskImp('20-8', '協助更新薪資系統', Worker.LE, 2),
-    new RiceBugTaskImp('20-9', '新增會計系統資料庫', Worker.ITSUPORT, 5),
-    new RiceBugTaskImp('20-10', '增加薪資系統資料庫欄位', Worker.ITSUPORT, 3),
+    new RiceBugTaskImp('20-7', '協助會計系統架設', Worker.LE, 1),
+    new RiceBugTaskImp('20-8', '協助更新薪資系統', Worker.LE, 1),
+    new RiceBugTaskImp('20-9', '新增會計系統資料庫', Worker.ITSUPORT, 2),
+    new RiceBugTaskImp('20-10', '增加薪資系統資料庫欄位', Worker.ITSUPORT, 1),
     new RiceBugTaskImp('20-11', '新增會計系統主機', Worker.TO, 5),
     new RiceBugTaskImp('20-12', '薪資系統資料庫增加儲存空間', Worker.TO, 3),
   ]),
@@ -291,8 +287,8 @@ export const taskConfig = [
     new RiceBugTaskImp('24-1', '審核相關成本', Worker.CFO, 3),
     new RiceBugTaskImp('24-2', '開發蝦米購物境外交易系統', Worker.RD, 3),
     new RiceBugTaskImp('24-3', '開發蝦米購物境外交易系統', Worker.CM, 3),
-    new RiceBugTaskImp('24-4', '境外交易系統建置，通知 TO 更新 Server 版本', Worker.LE, 2),
-    new RiceBugTaskImp('24-5', '建立境外交易系統資料庫 升級資料庫 Config v.2', Worker.ITSUPORT, 5),
+    new RiceBugTaskImp('24-4', '境外交易系統建置，通知 TO 更新 Server 版本', Worker.LE, 1),
+    new RiceBugTaskImp('24-5', '建立境外交易系統資料庫 升級資料庫 Config v.2', Worker.ITSUPORT, 2),
     new RiceBugTaskImp('24-6', '架設境外交易主機 升級 Server v.2', Worker.TO, 2),
   ],{
     config: 2,
@@ -330,7 +326,7 @@ export const taskConfig = [
   new RiceBugProjectImp(1, '28.MIJI 網路商店部份商品價格標示錯誤', false,
   { current: -2, last:  -2 },
   { current: -15000, last: -15000 }, [
-    new RiceBugTaskImp('28-1', '修正 MIJI 網路商店部份商品價格，需通知 it support 清除伺服器快取資料，並通知 TO 手動備份資料庫資料', Worker.LE, 3),
+    new RiceBugTaskImp('28-1', '修正 MIJI 網路商店部份商品價格，需通知 it support 清除伺服器快取資料，並通知 TO 手動備份資料庫資料', Worker.LE, 2),
     new RiceBugTaskImp('28-2', '清除 MIJI 網路商店伺服器快取資料，手動備份資料', Worker.ITSUPORT, 2),
     new RiceBugTaskImp('28-3', '檢測主機狀況', Worker.TO, 2),
   ]),
@@ -542,14 +538,15 @@ export const taskConfig = [
   new RiceBugProjectImp(2, '47.米倉公司形象網站更新', false,
   { current: 0, last:  0 },
   { current: 5000, last: 5000 }, [
-    new RiceBugTaskImp('47-1', '審核相關成本', Worker.CFO, 3),
-    new RiceBugTaskImp('47-2', '更新米倉公司形象網站', Worker.RD, 3),
-    new RiceBugTaskImp('47-3', '用戶系統新增米 ber 邀請碼邏輯', Worker.CM, 2),
-    new RiceBugTaskImp('47-4', '建立新形象網站', Worker.LE, 2),
-    new RiceBugTaskImp('47-5', '檢測軟體版本', Worker.ITSUPORT, 3),
-    new RiceBugTaskImp('47-6', '建立新形象網頁伺服器主機線路', Worker.TO, 5),
+    new RiceBugTaskImp('47-1', '確認米倉公司形象網站更新內容', Worker.RO, 2),
+    new RiceBugTaskImp('47-2', '審核相關成本', Worker.CFO, 1),
+    new RiceBugTaskImp('47-3', '更新米倉公司形象網站', Worker.RD, 3),
+    new RiceBugTaskImp('47-4', '用戶系統新增米 ber 邀請碼邏輯', Worker.CM, 3),
+    new RiceBugTaskImp('47-5', '建立新形象網站', Worker.LE, 1),
+    new RiceBugTaskImp('47-6', '檢測軟體版本', Worker.ITSUPORT, 1),
+    new RiceBugTaskImp('47-7', '建立新形象網頁伺服器主機線路', Worker.TO, 5),
   ]),
-];
+]
 export const trainingConfig  = new RiceBugProjectImp(2, '19.員工訓練', false,
   { current: 0, last: 0 },
   { current: 0, last: 0 }, [
