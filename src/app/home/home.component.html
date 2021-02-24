@@ -1,22 +1,25 @@
 
-<mat-card class="example-card" >
+<mat-card id="top" class="example-card example-card-mainInfo">
   <mat-card-header>
-    <mat-card-title>遊戲狀態:</mat-card-title>
+    <mat-card-title>遊戲狀態
+      <span class="round">
+        <span class="round-title">Round</span>
+        <span class="round-num">{{taskService.currentRound.roundID}}</span>
+        <span class="round-sec">{{countDown | countdown}}</span>
+      </span>
+    </mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <mat-list>
       <mat-list-item>
-        <input type="text" [value]="taskService.teamName" (input)="changeName($event.target.value) ">
+        <span>組別名稱：</span><input type="text" [value]="taskService.teamName" (input)="changeName($event.target.value) ">
+        <button class="btn-cleanData" (click)="taskService.clearCookie()">清除資料</button>
       </mat-list-item>
-      <mat-list-item>
-        <button (click)="taskService.clearCookie()">清除資料</button>
-      </mat-list-item>
-      <mat-list-item>
-        當前回合：{{taskService.currentRound.roundID}}
-      </mat-list-item>
-      <mat-list-item>
-        當前秒數：{{countDown | countdown}}
-      </mat-list-item>
+      <!-- <mat-list-item>
+        <span class="round-title">Round</span>
+        <span class="round-num">{{taskService.currentRound.roundID}}</span>
+        <span class="round-sec">{{countDown | countdown}}</span>
+      </mat-list-item> -->
       <mat-list-item>
         當前設定：{{taskService.config | json}}
       </mat-list-item>
@@ -27,36 +30,45 @@
   </mat-card-content>
 </mat-card>
 
-<mat-card class="example-card" >
+<mat-card class="example-card example-card-point">
   <mat-card-header>
-    <mat-card-title>角色點數:</mat-card-title>
+    <mat-card-title>角色點數</mat-card-title>
   </mat-card-header>
   <mat-card-content>
+    <table class="table">
+      <thead>
+        <th>RO,CFO</th>
+        <th>RD</th>
+        <th>CM</th>
+        <th>LE</th>
+        <th>ITSUPORT</th>
+        <th>TO</th>
+      </thead>
+      <tbody>
+        <td>{{taskService.memberEng.get(Worker.RO)}}</td>
+        <td>{{taskService.memberEng.get(Worker.RD)}}</td>
+        <td>{{taskService.memberEng.get(Worker.CM)}}</td>
+        <td>{{taskService.memberEng.get(Worker.LE)}}</td>
+        <td>{{taskService.memberEng.get(Worker.ITSUPORT)}}</td>
+        <td>{{taskService.memberEng.get(Worker.TO)}}</td>
+      </tbody>
+    </table>
     <mat-list>
-      <mat-list-item>RO: {{taskService.memberEng.get(Worker.RO)}}</mat-list-item>
-      <mat-list-item>CFO: {{taskService.memberEng.get(Worker.CFO)}}</mat-list-item>
-      <mat-list-item>RD: {{taskService.memberEng.get(Worker.RD)}}</mat-list-item>
-      <mat-list-item>CM: {{taskService.memberEng.get(Worker.CM)}}</mat-list-item>
-      <mat-list-item>LE: {{taskService.memberEng.get(Worker.LE)}}</mat-list-item>
-      <mat-list-item>ITSUPORT: {{taskService.memberEng.get(Worker.ITSUPORT)}}</mat-list-item>
-      <mat-list-item>TO: {{taskService.memberEng.get(Worker.TO)}}</mat-list-item>
       <mat-list-item>訓練項目：</mat-list-item>
-      <mat-list-item>
-        <button (click)="superTraining(Worker.LE, Worker.TO)" *ngIf="!taskService.leAndtoTogether">LE 與 TO</button>
-        <div *ngIf="taskService.leAndtoTogether">LE 與 TO 完成訓練</div>
-      </mat-list-item>
-      <mat-list-item>
-        <button (click)="superTraining(Worker.LE, Worker.ITSUPORT)" *ngIf="!taskService.leAndITSTogether">LE 與 ITS</button>
-        <div *ngIf="taskService.leAndITSTogether">LE 與 ITS 完成訓練</div>
-      </mat-list-item>
-      <mat-list-item>
-        <button (click)="superTraining(Worker.RD, Worker.CM)"  *ngIf="!taskService.rdAndcmTogether">RD 與 CM</button>
-        <div *ngIf="taskService.rdAndcmTogether">RD 與 CM 完成訓練</div>
-      </mat-list-item>
+        <div class="training-btnGroup">
+          <button  class="training-btn"  (click)="superTraining(Worker.RD, Worker.CM)"  *ngIf="!taskService.rdAndcmTogether">RD 與 CM</button>
+          <div  class="training-btn is-finished"  *ngIf="taskService.rdAndcmTogether">RD,CM 完成訓練</div>
+
+          <button class="training-btn" (click)="superTraining(Worker.LE, Worker.TO)" *ngIf="!taskService.leAndtoTogether">LE 與 TO</button>
+          <div  class="training-btn is-finished"  *ngIf="taskService.leAndtoTogether">LE,TO 完成訓練</div>
+
+          <button  class="training-btn"  (click)="superTraining(Worker.LE, Worker.ITSUPORT)" *ngIf="!taskService.leAndITSTogether">LE 與 ITS</button>
+          <div  class="training-btn is-finished"  *ngIf="taskService.leAndITSTogether">LE,ITS 完成訓練</div>
+        </div>
     </mat-list>
   </mat-card-content>
 </mat-card>
-<mat-card class="example-card" >
+<mat-card class="example-card example-card--2col" >
   <mat-card-header>
     <mat-card-title>chart Point:</mat-card-title>
   </mat-card-header>
@@ -72,7 +84,7 @@
   </mat-card-content>
 </mat-card>
 
-<mat-card class="example-card" >
+<mat-card class="example-card example-card--2col" >
   <mat-card-header>
     <mat-card-title>chart Amount:</mat-card-title>
   </mat-card-header>
@@ -88,10 +100,12 @@
   </mat-card-content>
 </mat-card>
 
-<button *ngIf="!taskService.currentRound.isPlanDone" (click)="doPlan()">do Plan</button>
-<button *ngIf="!taskService.currentRound.isWorkDone && taskService.currentRound.isPlanDone" (click)="doWork()">do Work</button>
-<a [routerLink]="[ '/scanner' ]" *ngIf="taskService.currentRound.isPlanDone && taskService.currentRound.isWorkDone">計分</a>
-<button *ngIf="taskService.currentRound.isPlanDone && taskService.currentRound.isWorkDone" (click)="nextRund()">nextRund</button>
+<div class="progress-btnGroup">
+  <button class="progress-btn" *ngIf="!taskService.currentRound.isPlanDone" (click)="doPlan()">do Plan</button>
+  <button class="progress-btn" *ngIf="!taskService.currentRound.isWorkDone && taskService.currentRound.isPlanDone" (click)="doWork()">do Work</button>
+  <a class="scan-btn" [routerLink]="[ '/scanner' ]" *ngIf="taskService.currentRound.isPlanDone && taskService.currentRound.isWorkDone">計分</a>
+  <button class="progress-btn" *ngIf="taskService.currentRound.isPlanDone && taskService.currentRound.isWorkDone" (click)="nextRund()">nextRund</button>
+</div>
 
 <mat-card class="example-card"  *ngIf="taskService.currentRound.roundID>1" >
   <mat-card-header>
@@ -125,66 +139,68 @@
   </mat-card-actions>
 </mat-card>
 
-<mat-card class="example-card"  *ngFor="let project of taskService.projectList"  >
-  <mat-card-header>
-    <mat-card-title>
-      <span class="project-info">專案項目:{{project.name}}, {{project.point | json}}</span>
-      <span class="project-info" [class.final]="project.done">完成狀態:{{project.done}}</span>
-      <span class="project-info" [class.final]="project.final">結案:{{project.final}}</span>
-    </mat-card-title>
-    <mat-card-title  *ngIf="project.config ">
-      <span class="project-info">{{project.config | json}}
-        <button (click)="done('config0'+project.config.config)">config</button>
-        <button (click)="done('server0'+project.config.server)">server</button>
-        <button (click)="done('proxy0'+project.config.proxy)">proxy</button>
-      </span>
-    </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-list>
-      <ng-container *ngFor="let task of project.taskList">
-        <mat-list-item >
-          <button (click)="done(task.id)" *ngIf="!project.final">V</button>
-          <button (click)="remove(task.id)" *ngIf="!project.final">X</button>
-          <span class="project-info">{{task.id}}:{{task.name}}</span>
-        </mat-list-item>
-        <mat-list-item>
-          <span class="project-info">任務者:{{task.worker}}</span>
-          <span class="project-info">點數:{{task.point}}</span>
-          <span class="project-info" [class.final]="task.final">任務狀態:{{task.final}}</span>
-        </mat-list-item>
-      </ng-container>
-     </mat-list>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button *ngIf="project.done && !project.final" (click)="taskService.close(project, taskService.currentRound)">
-      結案
-    </button>
-  </mat-card-actions>
-</mat-card>
+<div class="project-list">
+  <mat-card class="project-card" [class.is-finished]="project.final"  *ngFor="let project of taskService.projectList"  >
+    <mat-card-header>
+      <mat-card-title>
+        <div class="project-title">{{project.name}}</div>
+        <span class="project-info project-info--point">{{project.point | json}}</span>
+        <div class="project-info">
+          <span class="project-status" [class.final]="project.done">完成狀態:{{project.done}}</span>
+          <span class="project-status" [class.final]="project.final">結案:{{project.final}}</span>
+        </div>
+      </mat-card-title>
+    </mat-card-header>
+    <div class="project-task project-task--config" *ngIf="project.config ">
+      <div>版號需求：{{project.config | json}}</div>
+      <button class="updateConfig-btn" (click)="done('config0'+project.config.config)">config</button>
+      <button class="updateConfig-btn" (click)="done('server0'+project.config.server)">server</button>
+      <button class="updateConfig-btn" (click)="done('proxy0'+project.config.proxy)">proxy</button>
+    </div>
+    <mat-card-content>
+      <mat-list>
+        <ng-container *ngFor="let task of project.taskList">
+          <div class="project-task">
+            <button class="action-btn" [class.action-btn--done]="task.final" (click)="done(task.id)" *ngIf="!project.final">✔</button>
+            <button class="action-btn action-btn--cancel" [class.is-disabled]="!task.final" (click)="remove(task.id)" *ngIf="!project.final">✘</button>
+            <span class="project-task-name"><strong>{{task.id}}</strong> : {{task.name}}</span>
+            <div class="project-task-infoGroup">
+              <span class="project-task-info">任務者: {{task.worker}} / </span>
+              <span class="project-task-info">點數: {{task.point}} / </span>
+              <span class="project-task-info" [class.final]="task.final">任務狀態: {{task.final}}</span>
+            </div>
+          </div>
+        </ng-container>
+      </mat-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <button class="project-clearBtn" mat-button *ngIf="project.done && !project.final" (click)="taskService.close(project, taskService.currentRound)">
+        ✔ 結案
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
 
-<button mat-raised-button color="primary"
-        class="btn-up btn-le"
+
+<button class="btn-le trainingHelp-btn"
         [class.active]="taskService.supportWorker === Worker.LE"
         (click)="taskService.setSuperWorker(Worker.LE)"
         *ngIf="taskService.leAndtoTogether || taskService.leAndITSTogether">支援： 使用LE點數</button>
-<button mat-raised-button color="primary"
-        class="btn-up btn-to"
+<button class="btn-to trainingHelp-btn"
         [class.active]="taskService.supportWorker === Worker.TO"
         (click)="taskService.setSuperWorker(Worker.TO)"
         *ngIf="taskService.leAndtoTogether">支援： 使用TO點數</button>
-<button mat-raised-button color="primary"
-        class="btn-up btn-its"
+<button class="btn-it trainingHelp-btn"
         [class.active]="taskService.supportWorker === Worker.ITSUPORT"
         (click)="taskService.setSuperWorker(Worker.ITSUPORT)"
         *ngIf="taskService.leAndITSTogether">支援： 使用ITS點數</button>
-<button mat-raised-button color="primary"
-        class="btn-up btn-rd"
+<button class="btn-rd trainingHelp-btn"
         [class.active]="taskService.supportWorker === Worker.RD"
         (click)="taskService.setSuperWorker(Worker.RD)"
         *ngIf="taskService.rdAndcmTogether">支援： 使用RD點數</button>
-<button mat-raised-button color="primary"
-        class="btn-up btn-cm"
+<button class="btn-cm trainingHelp-btn"
         [class.active]="taskService.supportWorker === Worker.CM"
         (click)="taskService.setSuperWorker(Worker.CM)"
         *ngIf="taskService.rdAndcmTogether">支援： 使用CM點數</button>
+
+<a class="top" href="#top"></a>
