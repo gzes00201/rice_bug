@@ -1,24 +1,292 @@
-.project
+.mat-card
+  padding: 16px 0
+  border-radius: 0px
+  box-shadow: none
+.mat-list-base
+  .mat-list-item
+    min-height: 30px
+    height: auto
+    font-size: 14px
+.example-card
+  &.example-card--2col
+    display: inline-flex
+    flex-wrap: wrap
+    width: 50%
+// 遊戲狀態
+.example-card-mainInfo
+  padding: 0 0 16px
+  background: #4f375b
+  .mat-card-header
+    position: relative
+    padding: 10px 0
+    background: #2a1834
+    color: #ffffff
+  .mat-card-title
+    margin-bottom: 0
+  .mat-list-base .mat-list-item
+    color: #dedede
+.btn-cleanData
+  margin-left: 10px
+  padding: 5px 6px
+.round
+  position: absolute
+  top: 8px
+  right: 10px
+.round-title
+  color: #54e6ac
+  font-size: 18px
+.round-num
+  display: inline-block
+  margin-left: 5px
+  width: 24px
+  border-radius: 50%
+  background: #54e6ac
+  color: #2a1834
+  text-align: center
+  font-weight: bold
+  font-size: 18px
+  line-height: 24px
+.round-sec
+  margin-left: 10px
+  color: #54e6ac
+  vertical-align: text-bottom
+  font-weight: bold
+  font-size: 30px
+
+// 點數
+.example-card-point
+  background: #ededed
+.table
+  padding: 0 10px
+  width: 100%
+  th,td
+    padding: 3px
+    text-align: center
+  th
+    background:  #0d7bb6
+    color: #ffffff
+    &:nth-child(2),
+    &:nth-child(3)
+      background: #c95706
+    &:nth-child(4),
+    &:nth-child(5),
+    &:nth-child(6)
+      background: #00965c
+  td
+    background: #ffffff
+    color: #0d7bb6
+    font-weight: bold
+    font-size: 16px
+    &:nth-child(2),
+    &:nth-child(3)
+      color: #c95706
+    &:nth-child(4),
+    &:nth-child(5),
+    &:nth-child(6)
+      color: #00965c
+.training-btnGroup
+  display: flex
+  padding: 0 10px
+.training-btn
+  display: block
+  margin: 0 2px
+  padding: 5px 0px
+  max-width: 200px
+  width: calc(100% / 3 - 4px)
+  border: 1px solid #d2d2d2
+  border-radius: 3px
+  background: #ffffff
+  box-shadow: none
+  text-align: center
+  &.is-finished
+    background: #d2d2d2
+    color: #8a8a8a
+
+// 計分
+.progress-btnGroup
+  padding: 10px 10px
+.progress-btn,
+.scan-btn
+  padding: 6px 5px
+  max-width: 400px
+  border-radius: 4px
+  font-weight: bold
+  font-size: 18px
+.progress-btn
+  width: 100%
+  border: 2px solid #4c1667
+  background: #602a7c
+  color: #5effbf
+.scan-btn
+  display: block
+  margin-bottom: 5px
+  width: calc(100% - 14px)
+  border: 2px solid #ff2d74
+  background: #ff66a1
+  color: #ffffff
+  text-align: center
+  text-decoration: none
+
+// 專案
+.project-list
+  display: flex
+  flex-wrap: wrap
+  padding: 10px
+  background: #ededed
+.project-card
   margin-bottom: 10px
-  padding-top: 10px
-  border-top: 1px solid #000
+  width: 100%
+  border-radius: 4px
+  box-shadow: 0 2px 3px rgba(0,0,0,.2)
+  .mat-card-title
+    margin-bottom: 0px
+  @for $item from 1 through 48
+    &:nth-child(#{$item})
+      order: 48-#{$item}
+      &.is-finished
+        order: #{$item}
+  &.is-finished
+    color: gray
+    opacity: 0.8
+    .updateConfig-btn
+      border-color: #c6c6c6
+      background: #c6c6c6
+    .final
+      color: #05d786
+    .project-task
+      background: #e7f5e7
+    .action-btn
+      display: none
+    .project-task-name
+      color: gray
+.project-title
+  font-weight: bold
+  font-size: 20px
 .project-info
   margin-right: 15px
-.task
-  margin-left: 15px
+  font-size: 16px
+  &.project-info--point
+    padding: 3px 5px
+    border-radius: 4px
+    color: #b1b1b1
+    font-size: 13px
+.project-status
+  padding-right: 10px
+  line-height: 36px
+
+// 驗收條件
+.project-list
+  .mat-list
+    border-top: 1px solid #ebebeb
+.project-task
+  box-sizing: border-box
+  margin: 0 10px 5px
+  padding: 10px 10px
+  width: calc(100% - 20px)
+  border-radius: 4px
+  background: #f7f0fa
+.project-task--config
+  color: black
+  font-size: 13px
+.updateConfig-btn
+  display: inline-flex
+  justify-content: center
+  margin: 0 1px
+  max-width: 200px
+  width: calc(100% / 3 - 2px)
+  border: 1px solid #8e38e5
+  border-radius: 4px
+  background: #6713bc
+  color: #ffffff
+  font-size: 16px
+  line-height: 26px
+.project-task-name
+  margin-left: 3px
+  color: #4e1b6a
+  font-size: 16px
+.project-task-info
+  margin-right: 3px
+  color: #919191
+  font-size: 14px
+.project-task-infoGroup
+  padding-top: 3px
+.action-btn
+  display: inline-block
+  box-sizing: border-box
+  margin-right: 3px
+  padding: 0
+  width: 30px
+  height: 30px
+  border: 1px solid #9e9e9e
+  border-radius: 50%
+  &.action-btn--done
+    border-color: #019f62
+    background: #05d786
+    color: #ffffff
+  &.action-btn--cancel
+    color: red
+  &.is-disabled
+    color: #9e9e9e
+.project-clearBtn
+  margin: 0 20px
+  width: calc(100% - 40px)
+  border: 1px solid #019f62
+  border-radius: 5px
+  background: #05d786
+  color: #ffffff
+  font-weight: bold
+  font-size: 16px
+  line-height: 30px
 .final
   color: red
-.btn-up
+
+// top
+.top
   position: fixed
-  bottom: 0
+  top: calc(100% - 200px)
+  right: 5px
+  width: 40px
+  height: 40px
+  border-radius: 50%
+  background: rgba(#521e6f, .6)
+  &::before,
+  &::after
+   position: absolute
+   top: 12px
+   display: block
+   width: 3px
+   height: 14px
+   border-radius: 2px
+   background: #ffffff
+   content: ''
+  &::before
+    left: 14px
+    transform: rotate(45deg)
+  &::after
+    left: 23px
+    transform: rotate(135deg)
+
+// 訓練點數
+.trainingHelp-btn
+  position: fixed
   right: 0
+  bottom: 0
+  min-width: 130px
+  border: 1px solid #8e38e5
+  border-radius: 4px
+  background: #6713bc
+  color: #ffffff
+  font-size: 13px
+  line-height: 24px
+  &.active
+    border-color: #019f62
+    background: #05d786
+    color: #ffffff
   &.btn-to
     bottom: 30px
-  &.btn-its
+  &.btn-it
     bottom: 60px
   &.btn-rd
     bottom: 90px
   &.btn-cm
     bottom: 120px
-  &.active
-    background-color: red
