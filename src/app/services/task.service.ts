@@ -367,8 +367,8 @@ export class TaskService {
     this.memberDefaultEng.set(Worker.RD, 25);
     this.memberDefaultEng.set(Worker.CM, 25);
     this.memberDefaultEng.set(Worker.LE, 10);
-    this.memberDefaultEng.set(Worker.ITSUPORT, 30);
-    this.memberDefaultEng.set(Worker.TO, 40);
+    this.memberDefaultEng.set(Worker.ITSUPORT, 15);
+    this.memberDefaultEng.set(Worker.TO, 20);
   }
   private setSuperMemberDefaultEng() {
     this.memberDefaultEng.set(Worker.RO, 10);

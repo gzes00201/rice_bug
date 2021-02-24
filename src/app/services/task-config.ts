@@ -48,7 +48,7 @@ export const taskConfig = [
     new RiceBugTaskImp('4-3', '開發米 ber RWD', Worker.RD, 4),
     new RiceBugTaskImp('4-4', '建置米 ber RWD', Worker.CM, 4),
     new RiceBugTaskImp('4-5', '使用 NODE 14 版環境', Worker.LE, 2),
-    new RiceBugTaskImp('4-6', '升級資料庫Config V2', Worker.ITSUPORT, 3),
+    new RiceBugTaskImp('4-6', '升級資料庫Config V2', Worker.ITSUPORT, 4),
     new RiceBugTaskImp('4-7', '升級Server v2', Worker.TO, 4),
   ],{
     config: 2,
@@ -554,6 +554,6 @@ export const trainingConfig  = new RiceBugProjectImp(2, '19.員工訓練', false
     new RiceBugTaskImp('19-2', '更新米倉公司形象網站', Worker.CM, 3),
     new RiceBugTaskImp('19-3', '進行技術交流訓練', Worker.LE, 2),
     new RiceBugTaskImp('19-4', '1. 與 AD 進行技術交流 2.對 TO 進行技術交流', Worker.ITSUPORT, 4),
-    new RiceBugTaskImp('19-7', '與 IT support 進行技術交流', Worker.TO, 2),
+    new RiceBugTaskImp('19-5', '與 IT support 進行技術交流', Worker.TO, 2),
   ]
   );
