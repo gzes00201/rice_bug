@@ -163,8 +163,8 @@ export const taskConfig = [
   { current: -15000, last: -15000 }, [
     new RiceBugTaskImp('14-1', '與CFO確認 並通知技術協助處理', Worker.RO, 1),
     new RiceBugTaskImp('14-2', '通知技術協助處理', Worker.CFO, 1),
-    new RiceBugTaskImp('14-3', '修改稅單金額位數', Worker.RD, 2),
-    new RiceBugTaskImp('14-4', '修改稅單金額位數', Worker.CM, 2),
+    new RiceBugTaskImp('14-3', '修改稅單金額位數', Worker.RD, 3),
+    new RiceBugTaskImp('14-4', '修改稅單金額位數', Worker.CM, 3),
     new RiceBugTaskImp('14-5', '協助IT SUPPOER變更 稅務系統 資料庫欄位與盤點影響範圍', Worker.LE, 2),
     new RiceBugTaskImp('14-6', '變更稅務系統資料庫欄位', Worker.ITSUPORT, 5),
     new RiceBugTaskImp('14-7', '更新稅務系統主機並重新連結最新的資料庫', Worker.TO, 4),
@@ -193,7 +193,7 @@ export const taskConfig = [
     new RiceBugTaskImp('16-6', '變更評價系統ＡＰＩ連線位置', Worker.CM, 3),
     new RiceBugTaskImp('16-7', '評價系統跨平台機制', Worker.LE, 3),
     new RiceBugTaskImp('16-8', '建立評價系統資料庫', Worker.ITSUPORT, 4),
-    new RiceBugTaskImp('16-9', '評價即時更新主機建置', Worker.TO, 9),
+    new RiceBugTaskImp('16-9', '評價即時更新主機建置', Worker.TO, 4),
   ],{
     config: 4,
     server: 4,
@@ -208,7 +208,6 @@ export const taskConfig = [
     new RiceBugTaskImp('17-4', '修正會員登入所需資料庫地址欄位異常', Worker.ITSUPORT, 4),
     new RiceBugTaskImp('17-6', '修正會員登入連線主機異常', Worker.TO, 4),
     new RiceBugTaskImp('17-7', '重啟會員登入ＬＯＧ伺服器', Worker.TO, 4),
-    new RiceBugTaskImp('17-8', '重裝會員登入在線推播主機', Worker.TO, 3),
   ]),
   new RiceBugProjectImp(4, '18.米蟲員工後台 bug', false,
   { current: 0, last:  0 },
